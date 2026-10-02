@@ -1,7 +1,7 @@
-// Gera public/config.js a partir das variáveis de ambiente.
+// Monta a pasta public/ (index.html + config.js) a partir das variáveis de ambiente.
 // Na Vercel, defina SUPABASE_URL e SUPABASE_ANON_KEY em Settings > Environment Variables.
 // Localmente, coloque as duas em um arquivo .env.local (veja .env.example).
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 function lerEnvLocal() {
   if (!existsSync(".env.local")) return {};
@@ -40,8 +40,9 @@ try {
 }
 
 mkdirSync("public", { recursive: true });
+copyFileSync("index.html", "public/index.html");
 writeFileSync(
   "public/config.js",
   "window.APP_CONFIG = " + JSON.stringify({ SUPABASE_URL: url.replace(/\/$/, ""), SUPABASE_ANON_KEY: key }) + ";\n"
 );
-console.log("public/config.js gerado.");
+console.log("public/ montada (index.html + config.js).");

@@ -4,18 +4,18 @@ Gestão de pendências por cliente: responsável, prazo, prioridade, status, mé
 
 ## Como funciona
 
-- `public/index.html`: o painel inteiro, sem framework.
-- `build.mjs`: na hora do deploy, gera `public/config.js` com a URL e a chave **anon** da Supabase (vindas das variáveis de ambiente).
-- `supabase/schema.sql`: cria as tabelas `clientes` e `tarefas`, liga a segurança por linha e o tempo real.
-- `supabase/seed.sql`: carrega o cliente Pórtico com as 11 pendências.
+- `index.html`: o painel inteiro, sem framework.
+- `build.mjs`: na hora do deploy, monta a pasta `public/` com o `index.html` e um `config.js` com a URL e a chave **anon** da Supabase (vindas das variáveis de ambiente).
+- `schema.sql`: cria as tabelas `clientes` e `tarefas`, liga a segurança por linha e o tempo real.
+- `seed.sql`: carrega o cliente Pórtico com as 11 pendências.
 
 A chave anon fica visível no navegador, o que é normal na Supabase. Quem protege os dados é o login: sem entrar, as tabelas não devolvem nada.
 
 ## 1. Supabase
 
 1. Crie um projeto (ou use o que já tem) em supabase.com.
-2. Abra **SQL Editor**, cole `supabase/schema.sql` e execute.
-3. Cole `supabase/seed.sql` e execute (opcional, traz a Pórtico).
+2. Abra **SQL Editor**, cole o conteúdo de `schema.sql` e execute.
+3. Cole o conteúdo de `seed.sql` e execute (opcional, traz a Pórtico).
 4. Em **Authentication > Users > Add user**, crie um usuário com e-mail e senha para cada pessoa que vai usar (você, Jonathan, Marco, Louzada). Marque "Auto confirm user".
 5. Em **Authentication > Sign In / Providers**, desligue **Allow new users to sign up**. Assim só entra quem você criou.
 6. Em **Project Settings > API**, copie a **Project URL** e a chave **anon / publishable**. Não use a `service_role` nem a `secret`.
@@ -57,4 +57,4 @@ npm run dev
 
 ## Mudar a estrutura depois
 
-Para novas categorias, status ou campos, edite as listas no início do script em `public/index.html` e, se for um campo novo, adicione a coluna no Supabase. Cada push na branch `main` publica sozinho.
+Para novas categorias, status ou campos, edite as listas no início do script em `index.html` e, se for um campo novo, adicione a coluna no Supabase. Cada push na branch `main` publica sozinho.
